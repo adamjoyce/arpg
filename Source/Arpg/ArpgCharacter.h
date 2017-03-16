@@ -1,10 +1,12 @@
 // Copyright Adam Joyce. All Rights Reserved.
 #pragma once
 #include "GameFramework/Character.h"
+
+#include "BaseCharacter.h"
 #include "ArpgCharacter.generated.h"
 
 UCLASS(Blueprintable)
-class AArpgCharacter : public ACharacter
+class AArpgCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 

@@ -39,3 +39,24 @@ float ABaseCharacter::GetMaxHealth() const
 	return GetClass()->GetDefaultObject<ABaseCharacter>()->Health;
 }
 
+float ABaseCharacter::TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
+{
+	if (Health <= 0.0f)
+	{
+		/// The character is already dead / dying.
+		return 0.0f;
+	}
+
+	const float ActualDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+	if (ActualDamage > 0.0f)
+	{
+		Health -= ActualDamage;
+		if (Health <= 0.0f)
+		{
+			/// Die...
+		}
+	}
+
+	return ActualDamage;
+}
+

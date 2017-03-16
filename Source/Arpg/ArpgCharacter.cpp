@@ -5,6 +5,7 @@
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
 
+
 AArpgCharacter::AArpgCharacter()
 {
 	/// Set size for player capsule.

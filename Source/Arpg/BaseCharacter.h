@@ -36,7 +36,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "CharacterCondition")
 	float GetMaxHealth() const;
 
+
+	/************************************************************/
+	/* Damage, Hits, and Death.                                 */
+	/************************************************************/
+
+	/* Causes the character to take hitpoint damage. */
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
+
 private:
+	/************************************************************/
+	/* Hitpoints.                                               */
+	/************************************************************/
+
 	/* The health in hitpoints of the character. */
 	UPROPERTY(EditDefaultsOnly, Category = "CharacterCondition")
 	float Health;
