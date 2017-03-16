@@ -52,4 +52,9 @@ private:
 	/* The health in hitpoints of the character. */
 	UPROPERTY(EditDefaultsOnly, Category = "CharacterCondition")
 	float Health;
+
+
+	/************************************************************/
+	/* Damage, Hits, and Death.                                 */
+	/************************************************************/
 };

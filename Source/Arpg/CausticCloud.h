@@ -22,6 +22,10 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Visual")
 	UParticleSystemComponent* ParticleComponent;
 
+	/* The timer to handle the damage over time. */
+	UPROPERTY(VisibleAnywhere, Category = "Timer")
+	FTimerHandle DotTimerHandle;
+
 	/* Begins damaging characters when they enter the zone. */
 	UFUNCTION(BlueprintCallable, Category = "Collision")
 	void OnOverlapBegin(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FFromSweep, const FHitResult& SweepResult);
