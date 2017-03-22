@@ -2,10 +2,11 @@
 
 #include "Arpg.h"
 #include "CausticCloud.h"
-#include "ArpgCharacter.h"
+#include "BaseCharacter.h"
 
 
-ACausticCloud::ACausticCloud() : DotTimerHandle()
+ACausticCloud::ACausticCloud() : Damage(10.0f),
+								 TimeBetweenDamage(1.0f)
 {
 	/// Setup the trigger zone.
 	DamageZone = CreateDefaultSubobject<UBoxComponent>(TEXT("DamageZone"));
@@ -25,10 +26,12 @@ void ACausticCloud::OnOverlapBegin(class UPrimitiveComponent* HitComp, class AAc
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("ENTERED"));
-		//if (OtherActor->IsA(AArpgCharacter::StaticClass()) && GetWorld())
-		//{
-		//	GetWorld()->GetTimerManager().SetTimer(DotTimerHandle, this, &ACausticCloud::)
-		//}
+		if (OtherActor->IsA<ABaseCharacter>())
+		{
+			ABaseCharacter* OverlappingCharacter = (ABaseCharacter*)OtherActor;
+			FDamageEvent DamageEvent;
+			OverlappingCharacter->TakeDamageOverTime(Damage, TimeBetweenDamage, DamageEvent, OverlappingCharacter->GetController(), this);
+		}
 	}
 }
 

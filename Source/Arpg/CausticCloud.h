@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "BaseCharacter.h"
 #include "GameFramework/Actor.h"
 #include "CausticCloud.generated.h"
 
@@ -22,9 +23,14 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Visual")
 	UParticleSystemComponent* ParticleComponent;
 
-	/* The timer to handle the damage over time. */
-	UPROPERTY(VisibleAnywhere, Category = "Timer")
+	/* Handle to manage damage over time timer. */
 	FTimerHandle DotTimerHandle;
+
+	/* The amount of damage taken each tick. */
+	float Damage;
+
+	/* The amount of time between damage ticks. */
+	float TimeBetweenDamage;
 
 	/* Begins damaging characters when they enter the zone. */
 	UFUNCTION(BlueprintCallable, Category = "Collision")

@@ -4,7 +4,8 @@
 #include "BaseCharacter.h"
 
 
-ABaseCharacter::ABaseCharacter() : Health(100.0f)
+ABaseCharacter::ABaseCharacter() : Health(100.0f),
+								   IsDotted(false)
 {
  	/// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -58,5 +59,40 @@ float ABaseCharacter::TakeDamage(float Damage, struct FDamageEvent const& Damage
 	}
 
 	return ActualDamage;
+}
+
+float ABaseCharacter::TakeDamageOverTime(float Damage, float TimeBetweenDamage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser)
+{
+	float TotalDamageTaken = 0;
+
+	if (!IsDotted)
+	{
+		IsDotted = true;
+
+		TimerDelegate.BindUFunction(this, FName("TakeDamage"), Damage, DamageEvent, EventInstigator, DamageCauser);
+
+		if (GetWorld())
+		{
+			/// Activate the dot effect.
+			GetWorld()->GetTimerManager().SetTimer(DotTimerHandle, this, &ABaseCharacter::PrintDamage, TimeBetweenDamage, true);
+		}
+	}
+	
+	return TotalDamageTaken;
+}
+
+bool ABaseCharacter::GetIsDotted()
+{
+	return IsDotted;
+}
+
+void ABaseCharacter::SetIsDotted(bool IsDotted_)
+{
+	IsDotted = IsDotted_;
+}
+
+void ABaseCharacter::PrintDamage()
+{
+	UE_LOG(LogTemp, Warning, TEXT("DAMAGE"));
 }
 
