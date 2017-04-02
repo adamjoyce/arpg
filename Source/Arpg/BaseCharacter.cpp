@@ -69,12 +69,11 @@ float ABaseCharacter::TakeDamageOverTime(float Damage, float TimeBetweenDamage, 
 	{
 		IsDotted = true;
 
-		TimerDelegate.BindUFunction(this, FName("TakeDamage"), Damage, DamageEvent, EventInstigator, DamageCauser);
-
+		FTimerDelegate TimerDelegate = FTimerDelegate::CreateUFunction(this, FName("TakeDamage"), Damage, DamageEvent, EventInstigator, DamageCauser);
 		if (GetWorld())
 		{
 			/// Activate the dot effect.
-			GetWorld()->GetTimerManager().SetTimer(DotTimerHandle, this, &ABaseCharacter::PrintDamage, TimeBetweenDamage, true);
+			GetWorld()->GetTimerManager().SetTimer(DotTimerHandle, TimerDelegate, TimeBetweenDamage, true);
 		}
 	}
 	

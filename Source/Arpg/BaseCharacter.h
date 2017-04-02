@@ -42,7 +42,7 @@ public:
 	/************************************************************/
 
 	/* Causes the character to take hitpoint damage. */
-	UFUNCTION(BlueprintCallable, Category = "Damage")
+	//UFUNCTION(BlueprintCallable, Category = "Damage")
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
 	/* Causes the character to take damage ticks over a time period. */
@@ -72,9 +72,6 @@ private:
 
 	/* True if the character is currently suffering from a damage over time effect. */
 	bool IsDotted;
-
-	/* Delegate for the damage payload. */
-	FTimerDelegate TimerDelegate;
 
 	/* Damage over time timer handle. */
 	FTimerHandle DotTimerHandle;
